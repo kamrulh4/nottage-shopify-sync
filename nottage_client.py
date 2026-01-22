@@ -37,7 +37,7 @@ class NottageClient:
             return data.get("data", {})
         except requests.RequestException as e:
             logger.error(f"Nottage API Request Failed ({endpoint}): {e}")
-            return None
+            return {}
 
     def get_product_inventory(self, item_numbers: list):
         # API expects comma separated string? Or list?
