@@ -20,7 +20,10 @@ class ShopifyClient:
             try:
                 response = requests.request(method, url, headers=self.headers, json=json_data, params=params, timeout=60)
                 if response.status_code == 429:
-                    retry_after = int(response.headers.get('Retry-After', 2))
+                    try:
+                        retry_after = int(float(response.headers.get('Retry-After', 2)))
+                    except:
+                        retry_after = 2
                     logger.warning(f"Rate limit hit, sleeping {retry_after}s...")
                     time.sleep(retry_after)
                     continue
