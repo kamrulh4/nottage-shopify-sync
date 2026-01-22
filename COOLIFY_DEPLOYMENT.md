@@ -17,21 +17,18 @@ git push origin main
 
 ---
 
-## Step 2: Create Application in Coolify
+## Step 2: Create Resource in Coolify
 
 1. **Login to your Coolify dashboard**
-   - Go to your VPS IP or domain where Coolify is installed
-
 2. **Create New Resource**
-   - Click **"+ New"** → **"Application"**
-   - Select **"Public Repository"** or connect your GitHub/GitLab account
-   - Enter your repository URL
-   - Select branch: `main` (or your default branch)
+   - Click **"+ New"** → **"Docker Compose"**
+   - Select your Git repository
+   - Select branch: `development` (or your preferred branch)
+   - Coolify will load your `docker-compose.yml`
 
-3. **Configure Build Settings**
-   - Coolify will auto-detect the `Dockerfile`
-   - Build Method: **Dockerfile**
-   - No changes needed - Coolify handles it automatically
+3. **Configure Settings**
+   - Ensure the **"Restart Policy"** in Coolify is NOT set to "Always". 
+   - Since we have `restart: "no"` in `docker-compose.yml`, it will run once and then stop properly.
 
 ---
 
@@ -44,51 +41,34 @@ NOTTAGE_USER=
 NOTTAGE_PASS=
 SHOPIFY_URL=
 SHOPIFY_TOKEN=
+NOTTAGE_AUTH_TOKEN=
 ```
 
-> **⚠️ Important**: Replace these with your actual credentials if different!
+> **⚠️ Important**: 
+> 1. Use **six** dollar signs (`$$$$$$`) for the password to escape them in Coolify.
+> 2. `NOTTAGE_AUTH_TOKEN` is optional, it defaults to the token you provided.
 
 ---
 
-## Step 4: Configure Scheduled Execution
-
-Coolify has built-in support for scheduled tasks. Here's how to set it up:
-
-### Option A: Using Coolify's Scheduled Tasks (Recommended)
+## Step 4: Configure Scheduled Execution (Every 5 Minutes)
 
 1. Go to your application → **Settings** → **Scheduled Tasks**
 2. Click **"Add Scheduled Task"**
 3. Configure:
-   - **Schedule (Cron)**: `*/5 * * * *` (every 5 minutes)
-   - **Command**: Leave empty (uses default CMD from Dockerfile)
-   - **Container**: Select your app container
+   - **Name**: `sync-inventory`
+   - **Schedule (Cron)**: `*/5 * * * *`
+   - **Command**: `docker start technase-sync` (or whatever your container name is)
+4. **Save** and enable.
 
-4. **Save** and enable the scheduled task
+---
 
-### Option B: Deploy as Service + External Cron
+## Why use Docker Compose?
 
-If Coolify doesn't have scheduled tasks feature in your version:
+Using Docker Compose is better because:
+- ✅ **No Infinite Loop**: We set `restart: "no"`, so it stops after sync.
+- ✅ **Environment Control**: All variables are passed clearly.
+- ✅ **Volume Support**: Logs are saved to a persistent volume.
 
-1. Deploy the application normally (it will run once and exit)
-2. SSH into your VPS:
-   ```bash
-   ssh root@your-vps-ip
-   ```
-
-3. Find your container name:
-   ```bash
-   docker ps -a | grep technase
-   ```
-
-4. Add cron job:
-   ```bash
-   crontab -e
-   ```
-   
-   Add this line:
-   ```
-   */5 * * * * docker start <your-container-name> >> /var/log/technase-sync.log 2>&1
-   ```
 
 ---
 

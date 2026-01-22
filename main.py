@@ -20,11 +20,6 @@ NOTTAGE_PASS = os.getenv("NOTTAGE_PASS", "")
 SHOPIFY_URL = os.getenv("SHOPIFY_URL", "")
 SHOPIFY_TOKEN = os.getenv("SHOPIFY_TOKEN", "")
 
-# Debug: Print full values for debugging (USER REQUESTED)
-print(f"DEBUG: NOTTAGE_USER='{NOTTAGE_USER}'")
-print(f"DEBUG: NOTTAGE_PASS='{NOTTAGE_PASS}'")
-print(f"DEBUG: SHOPIFY_URL='{SHOPIFY_URL}'")
-print(f"DEBUG: SHOPIFY_TOKEN='{SHOPIFY_TOKEN}'")
 # ITEM_NUMBERS = [
 #     "HS1024", "HS1001", "HS1004", "HS1017", "HS1025", "HS1014", 
 #     "EL026", "TL1003", "HS1008", "EL003", "DA1007"
