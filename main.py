@@ -1,17 +1,18 @@
 import os
+from dotenv import load_dotenv
 
 import logging
 import time
 from sync_manager import SyncManager
 
-# -----------------------------
-# CONFIGURATION
-# -----------------------------
+# Load environment variables from .env file (for local development)
+load_dotenv()
 NOTTAGE_USER = os.environ.get("NOTTAGE_USER", "")
 NOTTAGE_PASS = os.environ.get("NOTTAGE_PASS", "")
 
 SHOPIFY_URL = os.environ.get("SHOPIFY_URL", "")
-SHOPIFY_TOKEN = os.environ.get("SHOPIFY_TOKEN", "") 
+SHOPIFY_TOKEN = os.environ.get("SHOPIFY_TOKEN", "")
+NOTTAGE_AUTH_TOKEN = os.environ.get("NOTTAGE_AUTH_TOKEN", "")
 
 # ITEM_NUMBERS = [
 #     "HS1024", "HS1001", "HS1004", "HS1017", "HS1025", "HS1014", 

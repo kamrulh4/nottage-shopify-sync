@@ -1,5 +1,3 @@
-import os
-
 import requests
 import base64
 import json
@@ -12,7 +10,7 @@ class NottageClient:
         self.base_url = "http://niconceptws.com/api/NottageECommerceApi"
         auth_string = f"{username}:{password}"
         # self.auth_token = base64.b64encode(auth_string.encode()).decode()
-        self.auth_token = os.environ.get("NOTTAGE_AUTH_TOKEN", "")
+        self.auth_token = "dXNlcm5hbWU6cGFzc3dvcmQ="
         self.headers = {
             "Content-Type": "application/json",
             "x-auth-token": self.auth_token
@@ -38,7 +36,7 @@ class NottageClient:
             return data.get("data", {})
         except requests.RequestException as e:
             logger.error(f"Nottage API Request Failed ({endpoint}): {e}")
-            return None
+            return {}
 
     def get_product_inventory(self, item_numbers: list):
         # API expects comma separated string? Or list?
