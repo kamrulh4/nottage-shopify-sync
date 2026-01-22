@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  technase-sync:
+    build: .
+    environment:
+      - NOTTAGE_USER=${NOTTAGE_USER}
+      - NOTTAGE_PASS=${NOTTAGE_PASS}
+      - SHOPIFY_URL=${SHOPIFY_URL}
+      - SHOPIFY_TOKEN=${SHOPIFY_TOKEN}
+      - NOTTAGE_AUTH_TOKEN=${NOTTAGE_AUTH_TOKEN}
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
