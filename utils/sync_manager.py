@@ -2,8 +2,8 @@ import logging
 import time
 from typing import List
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from nottage_client import NottageClient
-from shopify_client import ShopifyClient
+from .nottage_client import NottageClient
+from .shopify_client import ShopifyClient
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)

@@ -10,13 +10,14 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application files
-COPY main.py .
-COPY nottage_client.py .
-COPY shopify_client.py .
-COPY sync_manager.py .
+COPY app.py .
+COPY utils/ ./utils/
 
 # Environment variables will be provided by Coolify
 ENV PYTHONUNBUFFERED=1
 
-# Run the sync script
-CMD ["python", "main.py"]
+# Expose Flask port
+EXPOSE 8000
+
+# Run with Gunicorn for production
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--timeout", "300", "app:app"]

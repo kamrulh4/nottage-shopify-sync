@@ -1,12 +1,12 @@
+
 services:
-  technase-sync:
+  sync-api:
     build: .
-    environment:
-      - NOTTAGE_USER=${NOTTAGE_USER}
-      - NOTTAGE_PASS=${NOTTAGE_PASS}
-      - SHOPIFY_URL=${SHOPIFY_URL}
-      - SHOPIFY_TOKEN=${SHOPIFY_TOKEN}
-      - NOTTAGE_AUTH_TOKEN=${NOTTAGE_AUTH_TOKEN}
+    container_name: technase-sync-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
     volumes:
       - ./logs:/app/logs
-    restart: "no"
+    restart: unless-stopped
