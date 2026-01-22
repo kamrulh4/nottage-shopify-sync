@@ -30,6 +30,7 @@ class NottageClient:
             response = requests.post(url, headers=self.headers, json=payload, timeout=30)
             response.raise_for_status()
             data = response.json()
+            print("Data on _post method: ", data)
             # Ensure we return a dict even if "data" is missing or null
             return (data.get("data") if data else {}) or {}
         except requests.RequestException as e:
