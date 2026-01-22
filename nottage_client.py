@@ -18,6 +18,7 @@ class NottageClient:
         }
         self.username = username
         self.password = password
+        print(f"DEBUG: NottageClient initialized with user='{username}', pass='{password}'")
 
     def _post(self, endpoint, payload):
         url = f"{self.base_url}/{endpoint}"

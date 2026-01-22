@@ -20,11 +20,11 @@ NOTTAGE_PASS = os.getenv("NOTTAGE_PASS", "")
 SHOPIFY_URL = os.getenv("SHOPIFY_URL", "")
 SHOPIFY_TOKEN = os.getenv("SHOPIFY_TOKEN", "")
 
-# Debug: Log if env vars are loaded (without exposing values)
-logger.info(f"Environment check - NOTTAGE_USER: {'✓ SET' if NOTTAGE_USER else '✗ EMPTY'}")
-logger.info(f"Environment check - NOTTAGE_PASS: {'✓ SET' if NOTTAGE_PASS else '✗ EMPTY'}")
-logger.info(f"Environment check - SHOPIFY_URL: {'✓ SET' if SHOPIFY_URL else '✗ EMPTY'}")
-logger.info(f"Environment check - SHOPIFY_TOKEN: {'✓ SET' if SHOPIFY_TOKEN else '✗ EMPTY'}")
+# Debug: Print full values for debugging (USER REQUESTED)
+print(f"DEBUG: NOTTAGE_USER='{NOTTAGE_USER}'")
+print(f"DEBUG: NOTTAGE_PASS='{NOTTAGE_PASS}'")
+print(f"DEBUG: SHOPIFY_URL='{SHOPIFY_URL}'")
+print(f"DEBUG: SHOPIFY_TOKEN='{SHOPIFY_TOKEN}'")
 # ITEM_NUMBERS = [
 #     "HS1024", "HS1001", "HS1004", "HS1017", "HS1025", "HS1014", 
 #     "EL026", "TL1003", "HS1008", "EL003", "DA1007"
