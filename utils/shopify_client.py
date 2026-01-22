@@ -82,6 +82,8 @@ class ShopifyClient:
             logger.error(f"Invalid quantity value: {quantity}")
             return
 
+        endpoint = "inventory_levels/set.json"
+
         payload = {
             "location_id": self._location_id,
             "inventory_item_id": inventory_item_id,
