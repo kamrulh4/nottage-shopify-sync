@@ -75,7 +75,13 @@ class ShopifyClient:
             self._location_id = locations[0]["id"]
             logger.info(f"Cached location ID: {self._location_id}")
         
-        endpoint = "inventory_levels/set.json"
+        # Convert quantity to int (handles strings like '2.0')
+        try:
+            quantity = int(float(str(quantity)))
+        except (ValueError, TypeError):
+            logger.error(f"Invalid quantity value: {quantity}")
+            return
+
         payload = {
             "location_id": self._location_id,
             "inventory_item_id": inventory_item_id,
