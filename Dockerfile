@@ -3,6 +3,9 @@ FROM python:3.13-alpine
 # Set working directory
 WORKDIR /app
 
+# Install curl for health checks and scheduled tasks
+RUN apk add --no-cache curl
+
 # Copy requirements first for better caching
 COPY requirements.txt .
 
