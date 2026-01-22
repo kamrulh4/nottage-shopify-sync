@@ -22,8 +22,6 @@ class NottageClient:
     def _post(self, endpoint, payload):
         url = f"{self.base_url}/{endpoint}"
         
-        # Inject credentials into payload as seemingly required by test.py example,
-        # although header should be enough. Test.py included them in body too.
         if isinstance(payload, dict):
             payload["username"] = self.username
             payload["password"] = self.password
@@ -32,9 +30,8 @@ class NottageClient:
             response = requests.post(url, headers=self.headers, json=payload, timeout=30)
             response.raise_for_status()
             data = response.json()
-            # Basic validation
-            # Nottage returns "data": { ... } structure
-            return data.get("data", {})
+            # Ensure we return a dict even if "data" is missing or null
+            return (data.get("data") if data else {}) or {}
         except requests.RequestException as e:
             logger.error(f"Nottage API Request Failed ({endpoint}): {e}")
             return {}
